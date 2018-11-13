@@ -7,19 +7,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.btnNext)
-    FloatingActionButton btn_next;
-
-    @BindView(R.id.btnPrevious)
-    FloatingActionButton btn_prev;
+//    @BindView(R.id.btnNext)
+//    FloatingActionButton btn_next;
+//
+//    @BindView(R.id.btnPrevious)
+//    FloatingActionButton btn_prev;
 
     @BindView(R.id.dashboards_view_pager)
     ViewPager dashboards_view_pager;
+
+    SecurePreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,27 +32,49 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        preferences = Utils.getSecurePreferences(this);
+
         DashboardsPagerAdapter mDashboardsPagerAdapter = new DashboardsPagerAdapter(this);
         dashboards_view_pager.setAdapter(mDashboardsPagerAdapter);
 
         dashboards_view_pager.setCurrentItem(0);
 
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(getViewPagerItem(+1) <= 2)
-                    dashboards_view_pager.setCurrentItem(getViewPagerItem(+1), true);
-            }
-        });
+        autoSlideViewpager();
 
-        btn_prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(getViewPagerItem(-1) >= 0)
-                    dashboards_view_pager.setCurrentItem(getViewPagerItem(-1), true);
-            }
-        });
+//        btn_next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(getViewPagerItem(+1) <= 2)
+//                    dashboards_view_pager.setCurrentItem(getViewPagerItem(+1), true);
+//            }
+//        });
+//
+//        btn_prev.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(getViewPagerItem(-1) >= 0)
+//                    dashboards_view_pager.setCurrentItem(getViewPagerItem(-1), true);
+//            }
+//        });
 
+    }
+
+    private void autoSlideViewpager(){
+
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            int currentPagerItem = 0, counter = 0;
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dashboards_view_pager.setCurrentItem(currentPagerItem);
+                    }
+                });
+                currentPagerItem = (++counter % 2) == 0 ? 1 : 0;
+            }
+        }, 0, Integer.parseInt(preferences.getString(Constants.DASHBOARD_SLIDER_TIMER_KEY)));
     }
 
     private int getViewPagerItem(int index) {

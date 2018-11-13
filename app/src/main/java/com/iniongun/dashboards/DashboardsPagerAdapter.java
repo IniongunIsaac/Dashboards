@@ -24,11 +24,22 @@ public class DashboardsPagerAdapter extends PagerAdapter {
 
     Context mContext;
     LayoutInflater mLayoutInflater;
-    List<String> urlList = Arrays.asList("https://ndr.shieldnigeriaproject.com/", "http://wallboard.mgic-nigeria.org:8000/dashboard");
+    SecurePreferences preferences;
+    //List<String> urlList = Arrays.asList("https://ndr.shieldnigeriaproject.com/", "http://wallboard.mgic-nigeria.org:8000/dashboard");
+    List<String> urlList;
 
     public DashboardsPagerAdapter(Context mContext) {
         this.mContext = mContext;
         this.mLayoutInflater = LayoutInflater.from(mContext);
+        preferences = Utils.getSecurePreferences(mContext);
+//        urlList = Arrays.asList(preferences.getString(Constants.DASHBOARD_URLS_KEY).split("|"));
+        urlList = new ArrayList<>();
+        String[] urls = preferences.getString(Constants.DASHBOARD_URLS_KEY).split("#");
+        String timer = preferences.getString(Constants.DASHBOARD_SLIDER_TIMER_KEY);
+        for(String url: urls){
+            if (!url.equalsIgnoreCase(""))
+                urlList.add(url);
+        }
     }
 
     @Override
