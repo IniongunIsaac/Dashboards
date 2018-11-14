@@ -1,11 +1,12 @@
 package com.iniongun.dashboards;
 
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+
+import com.iniongun.dashboards.utilities.Constants;
+import com.iniongun.dashboards.utilities.SecurePreferences;
+import com.iniongun.dashboards.utilities.Utils;
 
 import java.util.Timer;
 import java.util.TimerTask;

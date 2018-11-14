@@ -1,4 +1,4 @@
-package com.iniongun.dashboards;
+package com.iniongun.dashboards.utilities;
 
 public class Constants {
 

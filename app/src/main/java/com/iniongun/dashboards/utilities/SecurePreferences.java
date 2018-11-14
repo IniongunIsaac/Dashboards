@@ -1,4 +1,4 @@
-package com.iniongun.dashboards;
+package com.iniongun.dashboards.utilities;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;

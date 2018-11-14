@@ -1,4 +1,4 @@
-package com.iniongun.dashboards;
+package com.iniongun.dashboards.utilities;
 
 import android.content.Context;
 

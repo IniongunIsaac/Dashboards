@@ -16,8 +16,11 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.iniongun.dashboards.utilities.Constants;
+import com.iniongun.dashboards.utilities.SecurePreferences;
+import com.iniongun.dashboards.utilities.Utils;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DashboardsPagerAdapter extends PagerAdapter {

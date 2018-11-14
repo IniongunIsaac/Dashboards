@@ -8,6 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.iniongun.dashboards.utilities.Constants;
+import com.iniongun.dashboards.utilities.SecurePreferences;
+import com.iniongun.dashboards.utilities.Utils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -42,7 +46,7 @@ public class DashboardConfigActivity extends AppCompatActivity {
 
         preferences = Utils.getSecurePreferences(this);
 
-        preferences.put(Constants.DASHBOARD_URLS_KEY, "");
+        //preferences.put(Constants.DASHBOARD_URLS_KEY, "");
 
         btn_done.setOnClickListener(new View.OnClickListener() {
             @Override
