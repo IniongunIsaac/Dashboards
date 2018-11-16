@@ -13,17 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.FullScreen">
-
-        </activity>
-        <activity android:name=".DashboardConfigActivity">
+            android:name=".ui.main.MainActivity"
+            android:theme="@style/AppTheme.FullScreen" />
+        <activity android:name=".ui.url_list.UrlListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.add_url.AddUrlActivity"
+            android:theme="@style/MyAppCompatDialogTheme" />
     </application>
 
 </manifest>

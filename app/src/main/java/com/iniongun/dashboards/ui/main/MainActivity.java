@@ -1,13 +1,15 @@
-package com.iniongun.dashboards;
+package com.iniongun.dashboards.ui.main;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.iniongun.dashboards.R;
 import com.iniongun.dashboards.utilities.Constants;
 import com.iniongun.dashboards.utilities.SecurePreferences;
 import com.iniongun.dashboards.utilities.Utils;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,28 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = Utils.getSecurePreferences(this);
 
-        DashboardsPagerAdapter mDashboardsPagerAdapter = new DashboardsPagerAdapter(this);
+        ArrayList<String> urls = getIntent().getStringArrayListExtra("URL_LIST");
+
+        DashboardsPagerAdapter mDashboardsPagerAdapter = new DashboardsPagerAdapter(this, urls);
         dashboards_view_pager.setAdapter(mDashboardsPagerAdapter);
 
         dashboards_view_pager.setCurrentItem(0);
 
         autoSlideViewpager();
-
-//        btn_next.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(getViewPagerItem(+1) <= 2)
-//                    dashboards_view_pager.setCurrentItem(getViewPagerItem(+1), true);
-//            }
-//        });
-//
-//        btn_prev.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(getViewPagerItem(-1) >= 0)
-//                    dashboards_view_pager.setCurrentItem(getViewPagerItem(-1), true);
-//            }
-//        });
 
     }
 

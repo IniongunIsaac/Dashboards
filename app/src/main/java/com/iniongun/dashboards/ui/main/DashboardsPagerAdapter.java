@@ -1,4 +1,4 @@
-package com.iniongun.dashboards;
+package com.iniongun.dashboards.ui.main;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,6 +16,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.iniongun.dashboards.R;
 import com.iniongun.dashboards.utilities.Constants;
 import com.iniongun.dashboards.utilities.SecurePreferences;
 import com.iniongun.dashboards.utilities.Utils;
@@ -31,18 +32,20 @@ public class DashboardsPagerAdapter extends PagerAdapter {
     //List<String> urlList = Arrays.asList("https://ndr.shieldnigeriaproject.com/", "http://wallboard.mgic-nigeria.org:8000/dashboard");
     List<String> urlList;
 
-    public DashboardsPagerAdapter(Context mContext) {
+    public DashboardsPagerAdapter(Context mContext, ArrayList<String> urlList) {
         this.mContext = mContext;
         this.mLayoutInflater = LayoutInflater.from(mContext);
-        preferences = Utils.getSecurePreferences(mContext);
-//        urlList = Arrays.asList(preferences.getString(Constants.DASHBOARD_URLS_KEY).split("|"));
-        urlList = new ArrayList<>();
-        String[] urls = preferences.getString(Constants.DASHBOARD_URLS_KEY).split("#");
-        String timer = preferences.getString(Constants.DASHBOARD_SLIDER_TIMER_KEY);
-        for(String url: urls){
-            if (!url.equalsIgnoreCase(""))
-                urlList.add(url);
-        }
+        this.urlList = urlList;
+
+//        preferences = Utils.getSecurePreferences(mContext);
+////        urlList = Arrays.asList(preferences.getString(Constants.DASHBOARD_URLS_KEY).split("|"));
+//        urlList = new ArrayList<>();
+//        String[] urls = preferences.getString(Constants.DASHBOARD_URLS_KEY).split("#");
+//        String timer = preferences.getString(Constants.DASHBOARD_SLIDER_TIMER_KEY);
+//        for(String url: urls){
+//            if (!url.equalsIgnoreCase(""))
+//                urlList.add(url);
+//        }
     }
 
     @Override

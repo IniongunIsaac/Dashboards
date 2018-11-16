@@ -20,4 +20,16 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light">
+        <!-- API 14 theme customizations can go here. -->
+    </style>
+
+    <style name="MyAppCompatDialogTheme" parent="AppBaseTheme">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>

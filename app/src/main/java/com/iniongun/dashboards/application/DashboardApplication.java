@@ -5,7 +5,14 @@ import android.app.Application;
 import android.app.Service;
 import android.content.res.Configuration;
 
+import com.iniongun.dashboards.dependencyinjection.ApplicationComponent;
+import com.iniongun.dashboards.dependencyinjection.ApplicationModule;
+import com.iniongun.dashboards.dependencyinjection.DaggerApplicationComponent;
+import com.iniongun.dashboards.dependencyinjection.UrlModule;
+
 public class DashboardApplication extends Application {
+
+    private ApplicationComponent applicationComponent;
 
     public static DashboardApplication get(Activity activity){
         return (DashboardApplication) activity.getApplication();
@@ -18,6 +25,16 @@ public class DashboardApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .urlModule(new UrlModule(this))
+                .build();
+
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
     }
 
     @Override
