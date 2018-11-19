@@ -1,5 +1,6 @@
 package com.iniongun.dashboards.ui.url_list;
 
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
@@ -42,17 +43,13 @@ import butterknife.ButterKnife;
 
 public class UrlListActivity extends AppCompatActivity {
 
-    @BindView(R.id.url_list_recycler_view)
-    RecyclerView url_list_recycler_view;
+    @BindView(R.id.url_list_recycler_view) RecyclerView url_list_recycler_view;
 
-    @BindView(R.id.btn_add_url)
-    FloatingActionButton btn_add_url;
+    @BindView(R.id.btn_add_url) FloatingActionButton btn_add_url;
 
-//    @BindView(R.id.toolbar)
-//    Toolbar toolbar;
+    @BindView(R.id.btn_start_url_activity) ImageView btn_start_url_activity;
 
-    @BindView(R.id.btn_start_url_activity)
-    ImageView btn_start_url_activity;
+    @BindView(R.id.btn_timer_settings) FloatingActionButton btn_timer_settings;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -63,6 +60,8 @@ public class UrlListActivity extends AppCompatActivity {
 
     UrlListAdapter adapter;
 
+    SecurePreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +69,11 @@ public class UrlListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_url_list);
 
         ButterKnife.bind(this);
+
+        preferences = Utils.getSecurePreferences(this);
+
+        //set default timer value
+        preferences.put(Constants.DASHBOARD_SLIDER_TIMER_KEY, "5000");
 
         ActionBar actionBar = getSupportActionBar();
         
@@ -114,6 +118,34 @@ public class UrlListActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(UrlListActivity.this, "Cannot start activity, please add at least one URL.", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        btn_timer_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(UrlListActivity.this);
+                dialog.setContentView(R.layout.timer_layout);
+                dialog.setTitle("Set Timer");
+
+                final EditText et_timer = dialog.findViewById(R.id.et_timer_interval);
+                Button btn_set_timer = dialog.findViewById(R.id.btn_set_timer);
+
+                btn_set_timer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String timer_text = et_timer.getText().toString();
+                        if (!timer_text.equalsIgnoreCase("")){
+                            preferences.put(Constants.DASHBOARD_SLIDER_TIMER_KEY, timer_text);
+                            Toast.makeText(UrlListActivity.this, "Timer set.", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        } else{
+                            Toast.makeText(UrlListActivity.this, "Please enter timer value.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                dialog.show();
             }
         });
 
