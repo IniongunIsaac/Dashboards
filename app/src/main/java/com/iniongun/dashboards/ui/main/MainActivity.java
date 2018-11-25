@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     SecurePreferences preferences;
 
+    ArrayList<String> urls;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = Utils.getSecurePreferences(this);
 
-        ArrayList<String> urls = getIntent().getStringArrayListExtra("URL_LIST");
+
+        urls = getIntent().getStringArrayListExtra("URL_LIST");
 
         DashboardsPagerAdapter mDashboardsPagerAdapter = new DashboardsPagerAdapter(this, urls);
         dashboards_view_pager.setAdapter(mDashboardsPagerAdapter);
@@ -61,7 +63,10 @@ public class MainActivity extends AppCompatActivity {
                         dashboards_view_pager.setCurrentItem(currentPagerItem);
                     }
                 });
-                currentPagerItem = (++counter % 2) == 0 ? 1 : 0;
+
+                currentPagerItem = (currentPagerItem >= urls.size()) ? 0 : ++currentPagerItem;
+
+//                currentPagerItem = (++counter % 2) == 0 ? 1 : 0;
             }
         }, 0, Integer.parseInt(preferences.getString(Constants.DASHBOARD_SLIDER_TIMER_KEY)));
     }
