@@ -69,8 +69,6 @@ public class DashboardsPagerAdapter extends PagerAdapter {
         View view = mLayoutInflater.inflate(R.layout.single_dashboard_layout, container, false);
 
         WebView webView = view.findViewById(R.id.webView);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -93,6 +91,10 @@ public class DashboardsPagerAdapter extends PagerAdapter {
             }
         });
         webView.addJavascriptInterface(new WebViewJSInterface(mContext), "webViewJS");
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setAppCacheEnabled(true);
+        webView.getSettings().setAppCachePath(mContext.getCacheDir().getPath());
+        webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         webView.loadUrl(urlList.get(position));
 
         //Log.i("DashboardsPagerAdapter", urlList.get(position));
